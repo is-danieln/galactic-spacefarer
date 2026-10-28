@@ -1,0 +1,4 @@
+ID;fullName;email;stardustCollection;wormholeNavigationSkill;navigationRank;spacesuitColor;originPlanet_code;department_code;position_code
+11111111-1111-4111-8111-111111111111;Nova Vega;nova@example.test;120;35;Cadet;White;X;EXPLORATION;CADET
+22222222-2222-4222-8222-222222222222;Orion Vale;orion@example.test;850;80;Expert;Blue;X;SCIENCE;NAVIGATOR
+33333333-3333-4333-8333-333333333333;Luna Sol;luna@example.test;440;60;Navigator;Silver;Y;ENGINEERING;COMMANDER

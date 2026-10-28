@@ -1,0 +1,54 @@
+
+server:
+  address: 127.0.0.1
+  port: 8080
+spring:
+  application.name: galactic-spacefarer
+  mail:
+    host: ${SMTP_HOST:127.0.0.1}
+    port: ${SMTP_PORT:1025}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties.mail.smtp:
+      auth: ${SMTP_AUTH:false}
+      starttls.enable: ${SMTP_STARTTLS:false}
+      connectiontimeout: 3000
+      timeout: 3000
+      writetimeout: 3000
+galactic.mail.from: ${MAIL_FROM:mission-control@example.test}
+cds:
+  indexPage.enabled: false
+  security.mock.enabled: false
+
+---
+spring:
+  config.activate.on-profile: default
+  sql.init:
+    mode: always
+    platform: sqlite
+  datasource:
+    url: "jdbc:sqlite:file::memory:?cache=shared"
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1
+      max-lifetime: 0
+cds:
+  security:
+    mock:
+      enabled: true
+      defaultUsers.enabled: false
+      users:
+        pilot-x:
+          password: local-x
+          roles: [SpacefarerUser]
+          attributes.planet: [X]
+        pilot-y:
+          password: local-y
+          roles: [SpacefarerUser]
+          attributes.planet: [Y]
+        visitor:
+          password: local-visitor
+          roles: []
+        unassigned:
+          password: local-unassigned
+          roles: [SpacefarerUser]

@@ -2,6 +2,6 @@
   "name": "galactic-spacefarer-cds",
   "version": "1.0.0",
   "devDependencies": {
-    "@sap/cds-dk": "^10.1.2"
+    "@sap/cds-dk": "10.2.0"
   }
 }

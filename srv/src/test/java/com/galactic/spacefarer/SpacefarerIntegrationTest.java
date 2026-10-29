@@ -64,7 +64,12 @@ class SpacefarerIntegrationTest {
                 .queryParam("$orderby", "fullName asc").queryParam("$top", "1").queryParam("$skip", "0")
                 .queryParam("$count", "true").queryParam("$expand", "originPlanet,department,position"))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.value.length()").value(1))
-                .andExpect(jsonPath("$.value[0].originPlanet.code").value("X"));
+                .andExpect(jsonPath("$.value[0].originPlanet.code").value("X"))
+                .andExpect(jsonPath("$.value[0].ID").value(X_ID));
+        http.perform(get(ENTITY).with(httpBasic("pilot-x", "local-x"))
+                .queryParam("$filter", "IsActiveEntity eq true and stardustCollection ge 100")
+                .queryParam("$orderby", "fullName asc").queryParam("$top", "1").queryParam("$skip", "1"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.value[0].fullName").value("Orion Vale"));
         http.perform(get(BASE + "Planets").with(httpBasic("pilot-x", "local-x")))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.value.length()").value(1))
                 .andExpect(jsonPath("$.value[0].code").value("X"));
@@ -150,6 +155,9 @@ class SpacefarerIntegrationTest {
         String id = JsonPath.read(body, "$.ID");
         String draft = ENTITY + "(ID=" + id + ",IsActiveEntity=false)";
         verifyNoInteractions(mail);
+        http.perform(patch(draft).with(httpBasic("pilot-x", "local-x"))
+                .contentType(MediaType.APPLICATION_JSON).content("{\"originPlanet_code\":\"Y\"}"))
+                .andExpect(status().isForbidden());
         http.perform(get(draft).with(httpBasic("pilot-y", "local-y"))).andExpect(status().is4xxClientError());
         http.perform(patch(draft).with(httpBasic("pilot-y", "local-y"))
                 .contentType(MediaType.APPLICATION_JSON).content("{\"spacesuitColor\":\"Red\"}"))

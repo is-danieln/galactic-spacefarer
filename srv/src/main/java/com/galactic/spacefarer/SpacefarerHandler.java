@@ -10,6 +10,7 @@ import com.sap.cds.services.ServiceException;
 import com.sap.cds.services.cds.CdsCreateEventContext;
 import com.sap.cds.services.cds.CdsUpdateEventContext;
 import com.sap.cds.services.draft.DraftNewEventContext;
+import com.sap.cds.services.draft.DraftPatchEventContext;
 import com.sap.cds.services.handler.EventHandler;
 import com.sap.cds.services.handler.annotations.After;
 import com.sap.cds.services.handler.annotations.Before;
@@ -39,6 +40,13 @@ public class SpacefarerHandler implements EventHandler {
     }
 
     @Before(entity = Spacefarers_.CDS_NAME)
+    public void checkDraftPlanet(DraftPatchEventContext context, List<Spacefarers> candidates) {
+        for (Spacefarers candidate : candidates) {
+            checkPlanet(candidate, context.getUserInfo());
+        }
+    }
+
+    @Before(entity = Spacefarers_.CDS_NAME)
     public void beforeCreate(CdsCreateEventContext context, List<Spacefarers> candidates) {
         for (Spacefarers candidate : candidates) {
             assignPlanet(candidate, context.getUserInfo());
@@ -49,7 +57,7 @@ public class SpacefarerHandler implements EventHandler {
     @Before(entity = Spacefarers_.CDS_NAME)
     public void beforeUpdate(CdsUpdateEventContext context, List<Spacefarers> candidates) {
         for (Spacefarers candidate : candidates) {
-            // A PATCH may contain only one field; do not reset omitted values.
+            // csak a beküldött mezőket módosítjuk
             checkPlanet(candidate, context.getUserInfo());
             validateAndEnhance(candidate, false);
         }
@@ -60,7 +68,7 @@ public class SpacefarerHandler implements EventHandler {
         for (Spacefarers candidate : candidates) {
             String email = candidate.getEmail();
             String name = candidate.getFullName();
-            // @After still runs inside the transaction. Send only after commit.
+            // az @After még a tranzakción belül fut, megvárjuk a végleges mentést
             context.getChangeSetContext().register(new ChangeSetListener() {
                 @Override
                 public void afterClose(boolean completed) {

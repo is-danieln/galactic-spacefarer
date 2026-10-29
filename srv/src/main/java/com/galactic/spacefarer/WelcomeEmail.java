@@ -29,8 +29,8 @@ public class WelcomeEmail {
         try {
             mailSender.send(message);
         } catch (MailException failure) {
-            // Creation has committed. A mail outage must not report the saved record as failed.
-            // This small exercise has no automatic retry; see README for the trade-off.
+            // a rekord már mentve van, a levél hibája nem vonja vissza
+            // automatikus újrapróbálás nincs
             log.warn("Az üdvözlőlevél küldése sikertelen ({}). Ellenőrizd az SMTP-szolgáltatást.", failure.getClass().getSimpleName());
         }
     }

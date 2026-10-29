@@ -8,13 +8,13 @@ annotate service.Spacefarers with @(
   },
   UI.SelectionFields: [fullName, spacesuitColor, department_code, navigationRank],
   UI.LineItem: [
-    { Value: fullName },
-    { Value: stardustCollection },
-    { Value: wormholeNavigationSkill },
-    { Value: navigationRank },
-    { Value: spacesuitColor },
-    { Value: originPlanet.name },
-    { Value: department.name }
+    { Value: fullName, ![@UI.Importance]: #High },
+    { Value: stardustCollection, ![@UI.Importance]: #High },
+    { Value: wormholeNavigationSkill, ![@UI.Importance]: #Medium },
+    { Value: navigationRank, ![@UI.Importance]: #Medium },
+    { Value: spacesuitColor, ![@UI.Importance]: #High },
+    { Value: originPlanet.name, Label: 'Origin planet', ![@UI.Importance]: #Low },
+    { Value: department.name, Label: 'Department', ![@UI.Importance]: #Low }
   ],
   UI.Facets: [
     { $Type: 'UI.ReferenceFacet', ID: 'Profile', Label: 'Profile', Target: '@UI.FieldGroup#Profile' },

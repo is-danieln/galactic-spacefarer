@@ -19,6 +19,13 @@
     "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
   },
   "sap.ui5": {
+    "services": {
+      "environmentCapabilities": {
+        "factoryName": "sap.fe.core.services.EnvironmentService",
+        "startup": "waitFor",
+        "settings": { "AppState": false }
+      }
+    },
     "dependencies": {
       "minUI5Version": "1.144.0",
       "libs": { "sap.m": {}, "sap.ui.core": {}, "sap.fe.templates": {} }

@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Galactic Spacefarers</title>
-  <style>html, body, #container { height: 100%; margin: 0; }</style>
+  <link rel="icon" href="data:,">
+  <style>html, body, #app, #container, #container-uiarea { height: 100%; margin: 0; }</style>
   <script id="sap-ui-bootstrap"
     src="https://ui5.sap.com/1.144.0/resources/sap-ui-core.js"
     data-sap-ui-theme="sap_horizon"
@@ -12,11 +13,13 @@
     data-sap-ui-resource-roots='{"galactic.spacefarers":"./"}'
     data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"
     data-sap-ui-compat-version="edge"
+    data-sap-ui-xx-componentPreload="off"
+    data-sap-ui-flexibilityServices='[{"connector":"LocalStorageConnector"}]'
     data-sap-ui-async="true"
     data-sap-ui-frame-options="trusted"></script>
 </head>
 <body class="sapUiBody sapUiSizeCompact" id="content">
-  <div data-sap-ui-component data-name="galactic.spacefarers" data-id="container"
+  <div id="app" data-sap-ui-component data-name="galactic.spacefarers" data-id="container" data-height="100%"
     data-settings='{"id":"galactic.spacefarers"}' data-handle-validation="true"></div>
 </body>
 </html>

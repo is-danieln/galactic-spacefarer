@@ -2,6 +2,14 @@
 
 SAP CAP Java, Fiori elements és SQLite.
 
+## Miért így készült?
+
+A kiírás SAP CAP-ot kért, a backend nyelvét nem kötötte meg. A Javát választottam, mert a feladatban szereplő `@Before` és `@After` jelölések közvetlenül illeszkednek a CAP Java eseménykezeléséhez. Az alap CRUD-műveleteket a CAP biztosítja, a saját kód a validálást, a bolygónkénti hozzáférés ellenőrzését és a levélküldést kezeli.
+
+A kért List Report és Object Page miatt Fiori elementset használtam. A mezőket és a képernyők felépítését a CDS-annotációk írják le. Ennél a nyilvántartó feladatnál ez egyszerű, egységes felületet ad.
+
+A validáció pontos szabályait és a levelezés módját a kiírás nyitva hagyta. A választott értékhatárok lent szerepelnek, a leveleket helyben a Mailpit fogadja. Külön figyeltem arra, hogy más bolygó adatai API-n keresztül se legyenek elérhetők, és levél csak sikeresen lezárt mentés után menjen ki.
+
 ## Indítás
 
 Java 21+ és Docker kell hozzá. Az első fordításhoz és a felülethez internet szükséges.
